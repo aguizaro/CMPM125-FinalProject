@@ -11,10 +11,19 @@ public class HotColdBarControl : MonoBehaviour
 
     private void Start()
     {
+        GameManager.Instance.hit = false;
         // Initialize the UI to reflect the starting state
         UpdateTemperatureBar();
     }
-//commiting
+    private void Update()
+    {
+        if(GameManager.Instance.hit == true)
+        {
+            DecreaseTemperature(10.0f);
+            GameManager.Instance.hit = false;
+        }
+    }
+    //commiting
     private void OnTriggerEnter(Collider other)
     {
 

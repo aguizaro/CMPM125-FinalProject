@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour
         float mouseX = Input.GetAxis("Mouse X") * rotationSensitivity;
         transform.Rotate(Vector3.up * mouseX);
 
-        Vector3 move = new Vector3(0, 0, Input.GetAxis("Vertical"));
+        Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         // local space to world space
         move = transform.TransformDirection(move);
         controller.Move(move * playerSpeed * Time.deltaTime);
