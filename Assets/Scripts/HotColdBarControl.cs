@@ -14,7 +14,7 @@ public class HotColdBarControl : MonoBehaviour
         // Initialize the UI to reflect the starting state
         UpdateTemperatureBar();
     }
-
+//commiting
     private void OnTriggerEnter(Collider other)
     {
 
