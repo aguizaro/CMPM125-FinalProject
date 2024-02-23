@@ -49,6 +49,7 @@ public class EnemyWander : MonoBehaviour
             {
                 sees = true;
                 // Debug.Log("found you");
+                agent.SetDestination(target.transform.position);
                 //Enemy.transform.position = Vector3.MoveTowards(Enemy.transform.position, target.transform.position, speed * Time.deltaTime);
             }
             else
