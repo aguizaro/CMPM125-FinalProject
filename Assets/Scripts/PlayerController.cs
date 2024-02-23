@@ -30,6 +30,8 @@ public class PlayerController : MonoBehaviour
             playerVelocity.y = 0f;
         }
 
+        //rotate ur mom
+
         //rotate player left right (Y axis)
         float mouseX = Input.GetAxis("Mouse X") * rotationSensitivity;
         transform.Rotate(Vector3.up * mouseX);
