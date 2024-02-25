@@ -62,6 +62,8 @@ public class NewBehaviourScript : MonoBehaviour
             // Do other things based on an attack ending.
         }
     }
+    //Made in china
+
     void Attack()
     {
         animator.SetTrigger("Attack");
