@@ -29,7 +29,7 @@ public class HotColdBarControl : MonoBehaviour
 
         if (other.CompareTag("Player"))
         {
-            IncreaseTemperature(60f);
+            IncreaseTemperature(100f);
         }
     }
 
@@ -69,12 +69,14 @@ public class HotColdBarControl : MonoBehaviour
             temperatureBarFill.color = Color.red;
             temperatureText.text = "HOT";
             temperatureText.color = Color.red;
+            GameManager.Instance.hot = true;
         }
         else
         {
             temperatureBarFill.color = Color.blue;
             temperatureText.text = "COLD";
             temperatureText.color = Color.blue;
+            GameManager.Instance.hot = false;
         }
 
     }

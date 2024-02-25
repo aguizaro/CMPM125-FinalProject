@@ -10,7 +10,7 @@ public class EnemyDamage : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        GameManager.Instance.hot = false;
     }
 
     // Update is called once per frame
@@ -26,7 +26,15 @@ public class EnemyDamage : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Sword"))
         {
-            Destroy(enemy);
+            if (GameManager.Instance.hot == true)
+            {
+                if (GameManager.Instance.attack == true)
+                {
+                    Destroy(enemy);
+                    GameManager.Instance.attack = false;
+                    //GameManager.Instance.attack = false;
+                }
+            }
         }
     }
 

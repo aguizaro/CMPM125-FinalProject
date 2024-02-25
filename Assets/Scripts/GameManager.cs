@@ -22,4 +22,7 @@ public class GameManager : MonoBehaviour
         _instance = this;
     }
     public bool hit { get; set; }
+    public bool hot { get; set; }
+
+    public bool attack { get; set; }
 }
