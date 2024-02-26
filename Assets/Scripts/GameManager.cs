@@ -25,4 +25,6 @@ public class GameManager : MonoBehaviour
     public bool hot { get; set; }
 
     public bool attack { get; set; }
+
+    public bool movable { get; set; }
 }
