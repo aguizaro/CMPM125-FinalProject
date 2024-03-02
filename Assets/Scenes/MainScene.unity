@@ -1068,6 +1068,9 @@ MonoBehaviour:
   maxTemperature: 100
   temperatureBarFill: {fileID: 444607751}
   temperatureText: {fileID: 1499464705}
+  temperatureIncreaseRate: 5
+  audioSource: {fileID: 0}
+  hotHotHotClip: {fileID: 0}
 --- !u!1 &1499464703
 GameObject:
   m_ObjectHideFlags: 0
@@ -1102,7 +1105,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -254.42365, y: 156.96109}
+  m_AnchoredPosition: {x: -254.42365, y: 173.4}
   m_SizeDelta: {x: -546, y: -368.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1499464705
