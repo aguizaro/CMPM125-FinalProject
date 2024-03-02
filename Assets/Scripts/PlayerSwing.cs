@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerSwing : MonoBehaviour
 {
     public Animator animator;
-    private bool attacking = false;
+    //private bool attacking = false;
     // Start is called before the first frame update
     void Start()
     {
