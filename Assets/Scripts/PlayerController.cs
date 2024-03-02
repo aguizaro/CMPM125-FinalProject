@@ -6,8 +6,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private CharacterController controller;
+    public CharacterController controller;
     private Vector3 playerVelocity;
+    public Vector3 move;
     private bool groundedPlayer;
     [SerializeField] private float playerSpeed = 10f;
     [SerializeField] private float jumpHeight = 4f;

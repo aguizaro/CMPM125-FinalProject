@@ -8,6 +8,7 @@ public class PlayerStateManager : MonoBehaviour
     PlayerBaseState currentState;
     public PlayerBaseState IdleState = new PlayerIdleState();
     public PlayerAttackingState AttackingState = new PlayerAttackingState();
+    public PlayerDashState DashState = new PlayerDashState();
     // Start is called before the first frame update
     void Start()
     {

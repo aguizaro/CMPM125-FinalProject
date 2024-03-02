@@ -26,5 +26,6 @@ public class GameManager : MonoBehaviour
 
     public bool attack { get; set; }
 
+    public bool dashing { get; set; }
     public bool movable { get; set; }
 }

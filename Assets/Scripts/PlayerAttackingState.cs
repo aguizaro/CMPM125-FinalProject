@@ -6,7 +6,9 @@ using UnityEngine;
 public class PlayerAttackingState : PlayerBaseState
 {
     // Start is called before the first frame update
-    
+    //damage: 1 -> 5
+    //enemy health: 3 -> 8
+    //health bar
     private bool attacking = false;
     public GameObject Sword;
     public Animator animator;
