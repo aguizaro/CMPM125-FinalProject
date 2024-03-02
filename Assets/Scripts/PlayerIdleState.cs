@@ -15,6 +15,10 @@ public class PlayerIdleState : PlayerBaseState
         {
             player.SwitchState(player.AttackingState);
         }
+        else if (Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            player.SwitchState(player.DashState);
+        }
     }
 
     public override void OnCollisionEnter(PlayerStateManager player, Collision collision)

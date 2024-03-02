@@ -7,7 +7,7 @@ public class EnemyWander : MonoBehaviour
 {
     public float wanderRadius = 10f;
     public float wanderTimer = 5f;
-    private float speed = 3.0f;
+    public float speed = 2.0f;
 
     private bool sees = false;
     private GameObject target;
