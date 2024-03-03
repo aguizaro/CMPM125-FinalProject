@@ -6,62 +6,64 @@ public class HotColdBarControl : MonoBehaviour
 {
     [SerializeField] private float maxTemperature = 100f; // Maximum temperature value
     private float currentTemperature = 20f; // Current temperature
-    public Image temperatureBarFill; // The UI element that represents the temperature fill
+    public Slider temperatureSlider; // The UI slider to represent the temperature
     public TextMeshProUGUI temperatureText; // The text element that shows "HOT" or "COLD"
-    private bool isPlayerInForge = false; // Flag to check if the player is in the forge
-    [SerializeField] private float temperatureIncreaseRate = 5f; // Rate of temperature increase per second
+    [SerializeField] private float increaseRate = 5f; // Temperature increase rate per second in forge area
+    [SerializeField] private float decreaseRate = 10f; // Temperature decrease rate on click
+    public AudioClip fullHeatSound; // Sound to play when the temperature bar is full
+    private AudioSource audioSource; // AudioSource component to play the sound
 
-    [SerializeField] private AudioSource audioSource; // Reference to the audio source component
-    [SerializeField] private AudioClip hotHotHotClip; // Reference to the audio clip
+
 
     private void Start()
     {
-        GameManager.Instance.hit = false;
+        if (temperatureSlider == null)
+        {
+            temperatureSlider = GetComponent<Slider>();
+        }
+
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            // Add AudioSource if it's missing
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+
+        // Initialize the UI to reflect the starting state
         UpdateTemperatureBar();
     }
 
     private void Update()
     {
-        // Increase temperature if player is in the forge area
-        if (isPlayerInForge)
+        // Drain the heat bar when the left mouse button is clicked
+        if (Input.GetMouseButtonDown(0)) // 0 is the button number for the left mouse button
         {
-            IncreaseTemperature(temperatureIncreaseRate * Time.deltaTime);
-        }
-
-        // Check for player attack (left mouse click) and decrease temperature
-        if (Input.GetMouseButtonDown(0))
-        {
-            DecreaseTemperature(10.0f);
-        }
-
-        // Play the sound effect when the bar is full and the clip is not null
-        if (currentTemperature >= maxTemperature && hotHotHotClip != null && !audioSource.isPlaying)
-        {
-            audioSource.PlayOneShot(hotHotHotClip);
+            DecreaseTemperature(decreaseRate); // Decrease temperature on click
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            isPlayerInForge = true;
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            isPlayerInForge = false;
+            IncreaseTemperature(increaseRate * Time.deltaTime); // Gradually increase temperature in forge
         }
     }
 
     private void IncreaseTemperature(float amount)
     {
-        currentTemperature += amount;
-        currentTemperature = Mathf.Min(currentTemperature, maxTemperature);
-        UpdateTemperatureBar();
+        if (currentTemperature < maxTemperature)
+        {
+            currentTemperature += amount;
+            currentTemperature = Mathf.Min(currentTemperature, maxTemperature);
+            UpdateTemperatureBar();
+
+            if (currentTemperature >= maxTemperature)
+            {
+                // Play sound when the temperature bar is full
+                audioSource.PlayOneShot(fullHeatSound);
+            }
+        }
     }
 
     private void DecreaseTemperature(float amount)
@@ -73,18 +75,17 @@ public class HotColdBarControl : MonoBehaviour
 
     private void UpdateTemperatureBar()
     {
-        float fillAmount = currentTemperature / maxTemperature;
-        temperatureBarFill.fillAmount = fillAmount;
+        temperatureSlider.value = currentTemperature;
 
         if (currentTemperature > maxTemperature * 0.5)
         {
-            temperatureBarFill.color = Color.red;
+            //temperatureSlider.fillRect.GetComponentInChildren<Image>().color = Color.red;
             temperatureText.text = "HOT";
             temperatureText.color = Color.red;
         }
         else
         {
-            temperatureBarFill.color = Color.blue;
+           // temperatureSlider.fillRect.GetComponentInChildren<Image>().color = Color.blue;
             temperatureText.text = "COLD";
             temperatureText.color = Color.blue;
         }
