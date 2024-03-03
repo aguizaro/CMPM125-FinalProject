@@ -6,7 +6,9 @@ public class HotColdBarControl : MonoBehaviour
 {
     [SerializeField] private float maxTemperature = 100f; // Maximum temperature value
     private float currentTemperature = 20f; // Current temperature
+
     public Slider temperatureSlider; // The UI slider to represent the temperature
+
     public TextMeshProUGUI temperatureText; // The text element that shows "HOT" or "COLD"
     [SerializeField] private float increaseRate = 5f; // Temperature increase rate per second in forge area
     [SerializeField] private float decreaseRate = 10f; // Temperature decrease rate on click
@@ -79,13 +81,11 @@ public class HotColdBarControl : MonoBehaviour
 
         if (currentTemperature > maxTemperature * 0.5)
         {
-            //temperatureSlider.fillRect.GetComponentInChildren<Image>().color = Color.red;
             temperatureText.text = "HOT";
             temperatureText.color = Color.red;
         }
         else
         {
-           // temperatureSlider.fillRect.GetComponentInChildren<Image>().color = Color.blue;
             temperatureText.text = "COLD";
             temperatureText.color = Color.blue;
         }
