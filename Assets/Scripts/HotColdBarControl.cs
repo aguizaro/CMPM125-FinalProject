@@ -19,6 +19,7 @@ public class HotColdBarControl : MonoBehaviour
 
     private void Start()
     {
+        GameManager.Instance.heat = currentTemperature;
         if (temperatureSlider == null)
         {
             temperatureSlider = GetComponent<Slider>();
@@ -37,8 +38,9 @@ public class HotColdBarControl : MonoBehaviour
 
     private void Update()
     {
+        GameManager.Instance.heat = currentTemperature;
         // Drain the heat bar when the left mouse button is clicked
-        if (Input.GetMouseButtonDown(0)) // 0 is the button number for the left mouse button
+        if (Input.GetMouseButtonDown(0) && (GameManager.Instance.heat >= 20.0f)) // 0 is the button number for the left mouse button
         {
             DecreaseTemperature(decreaseRate); // Decrease temperature on click
         }

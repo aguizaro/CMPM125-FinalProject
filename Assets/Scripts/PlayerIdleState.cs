@@ -11,7 +11,7 @@ public class PlayerIdleState : PlayerBaseState
 
     public override void UpdateState(PlayerStateManager player)
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0) && (GameManager.Instance.heat >=20.0f))
         {
             player.SwitchState(player.AttackingState);
         }
