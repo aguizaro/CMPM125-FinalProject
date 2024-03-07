@@ -48,6 +48,10 @@ public class GameManager : MonoBehaviour
 
     public bool dashing { get; set; }
     public bool movable { get; set; }
+
+    /// <summary>
+    public bool explosive { get; set; }
+    /// </summary>
     
     public float heat { get; set; }
 

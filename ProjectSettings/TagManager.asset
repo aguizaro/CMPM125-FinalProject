@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Forge
   - Sword
+  - Explosion
+  - Enemy
   layers:
   - Default
   - TransparentFX
