@@ -12,7 +12,7 @@ public class PlayerAttackingState : PlayerBaseState
     private bool attacking = false;
     public GameObject Sword;
     public Animator animator;
-    public override void EnterState(PlayerStateManager player)
+    public override void EnterState(PlayerStateManager player, GameObject radius)
     {
         //if (Input.GetKeyDown(KeyCode.Mouse0))
         //{
@@ -20,7 +20,7 @@ public class PlayerAttackingState : PlayerBaseState
         animator = Sword.GetComponent<Animator>();
         Attack();
         //animator.GetComponent.Animation<>();
-        GameManager.Instance.attack = true;
+       // GameManager.Instance.attack = true;
         GameManager.Instance.hit = true;
         GameManager.Instance.movable = false;
        // }
@@ -41,7 +41,7 @@ public class PlayerAttackingState : PlayerBaseState
         }
     }
 
-    public override void UpdateState(PlayerStateManager player)
+    public override void UpdateState(PlayerStateManager player, GameObject raidus)
     {
         if(GameManager.Instance.attack == false)
         {

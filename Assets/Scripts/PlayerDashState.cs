@@ -46,7 +46,7 @@ public class PlayerDashState : PlayerBaseState
     //public float dashSpeed = 1.0f;
     //public float dashStoppingSpeed = 0.1f;
     //private float currentDashTime;
-    public override void EnterState(PlayerStateManager player)
+    public override void EnterState(PlayerStateManager player, GameObject radius)
     {
         //  rb = player.GetComponent<Rigidbody>();
         // pm = player.GetComponent<PlayerController>();
@@ -71,7 +71,7 @@ public class PlayerDashState : PlayerBaseState
    // {
 
  //   }
-    public override void UpdateState(PlayerStateManager player)
+    public override void UpdateState(PlayerStateManager player, GameObject radius)
     {
         if (!GameManager.Instance.dashing)
         {

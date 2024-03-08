@@ -2356,6 +2356,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90ca1075ea3404b41abae9c7de7f46fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  radius: {fileID: 811434192}
 --- !u!54 &1840663239
 Rigidbody:
   m_ObjectHideFlags: 0
