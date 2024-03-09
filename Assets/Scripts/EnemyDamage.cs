@@ -38,6 +38,10 @@ public class EnemyDamage : MonoBehaviour
                 }
             }
         }
+        else if (collision.gameObject.CompareTag("Explosion"))
+        {
+            Destroy(enemy);
+        }
     }
 
 }

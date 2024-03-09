@@ -6,7 +6,7 @@ public class DashTesting: MonoBehaviour
 {
     //main code by:https://www.youtube.com/watch?v=vTNWUbGkZ58
     PlayerController moveScript;
-    
+    private CharacterController controlls;
     //[Header("References")]
     //  public Transform orientation;
     //  public Transform playerCam;
@@ -30,6 +30,7 @@ public class DashTesting: MonoBehaviour
 
     private void Start()
     {
+        controlls = GetComponent<CharacterController>();
         moveScript = GetComponent<PlayerController>();
        // rb = GetComponent<Rigidbody>();
         //pm = GetComponent<PlayerController>();
@@ -66,8 +67,11 @@ public class DashTesting: MonoBehaviour
         {
             // moveScript.controller.Move(moveScript.move * dashSpeed * Time.deltaTime);
             //code from @lamnguyentung3227 on Youtube
-            transform.Translate(Vector3.forward * dashSpeed);
-            
+            //  transform.Translate(Vector3.forward * dashSpeed);
+
+            Vector3 forward = transform.TransformDirection(Vector3.forward);
+
+            controlls.Move(forward * dashSpeed);
             yield return null;//new WaitForSeconds(time);
             //indashed = false;
           //  GameManager.Instance.dashing = false;

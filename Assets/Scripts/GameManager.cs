@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
@@ -47,6 +48,12 @@ public class GameManager : MonoBehaviour
 
     public bool dashing { get; set; }
     public bool movable { get; set; }
+
+    /// <summary>
+    public bool explosive { get; set; }
+    /// </summary>
+    
+    public float heat { get; set; }
 
     // spawn enemies along the circumference of the circle defined by the waveParams.radius
     private void SpawnEnemy(WaveParams waveParams)

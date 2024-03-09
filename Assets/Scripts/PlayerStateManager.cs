@@ -9,11 +9,14 @@ public class PlayerStateManager : MonoBehaviour
     public PlayerBaseState IdleState = new PlayerIdleState();
     public PlayerAttackingState AttackingState = new PlayerAttackingState();
     public PlayerDashState DashState = new PlayerDashState();
+    public PlayerExplosionState ExplosionState = new PlayerExplosionState();
+    public GameObject radius;
     // Start is called before the first frame update
     void Start()
     {
+        radius.SetActive(false);
         currentState = IdleState;
-        currentState.EnterState(this);
+        currentState.EnterState(this, radius);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -23,12 +26,12 @@ public class PlayerStateManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        currentState.UpdateState(this);
+        currentState.UpdateState(this, radius);
     }
 
     public void SwitchState(PlayerBaseState state)
     {
         currentState = state;
-        state.EnterState(this);
+        state.EnterState(this, radius);
     }
 }

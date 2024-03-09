@@ -61,6 +61,10 @@ public class PlayerSwing : MonoBehaviour
             //pc_anim.SetBool("attack", false);
             // Do other things based on an attack ending.
         }
+        else if (message.Equals("Explodone"))
+        {
+            GameManager.Instance.explosive = false;
+        }
     }
     //Made in china
 
