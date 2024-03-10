@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5524617242036275511}
   - component: {fileID: 8458372192650921856}
-  - component: {fileID: 8551247442178233965}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -47,22 +46,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyPrefab: {fileID: 3109142107695833682, guid: 6f8c3306993864f94b208d2e9120ed08,
     type: 3}
+  _playerInstance: {fileID: 0}
+  playerKnockBack: 50
   _forge: {fileID: 0}
   _UIManager: {fileID: 0}
-  timeBetweenWaves: 10
+  timeBetweenWaves: 20
   fullHeatSound: {fileID: 8300000, guid: f799f9483f9ab45bdb32fa0771feb1d1, type: 3}
---- !u!114 &8551247442178233965
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7745966783591129934}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7d2d2467929144a7b22741877f13566, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthBar: {fileID: 0}
-  health: 50
-  regenerationRate: 1

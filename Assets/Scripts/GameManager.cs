@@ -67,15 +67,18 @@ public class GameManager : MonoBehaviour
 
     // Game State Variables ---------------------------------------------------------------------------------------------------------------------------
     [SerializeField] private GameObject _enemyPrefab;
+    [SerializeField] private GameObject _playerInstance;
+    [SerializeField] private float playerKnockBack = 50f;
     [SerializeField] private GameObject _forge;
     [SerializeField] private UIManager _UIManager;
-    [SerializeField] private float timeBetweenWaves = 10f;
+    [SerializeField] private float timeBetweenWaves = 20f;
     private Vector3[] _possibleForgePositions = { new Vector3(-132f, -0.13f, -17f), new Vector3(130f, -0.13f, -98.5f), new Vector3(81f, -0.13f, 158f), new Vector3(-5f, -0.13f, -185f), new Vector3(-84f, -0.13f, 243f), new Vector3(-174f, -0.13f, -230f) };
-    public GameState CurrentState = new GameState() { gameStarted = false, gamePaused = false, gameEnded = false, waveNumber = 0, playerKillCount = 0, playerHealth = 100, playerHeat = 50f, enemiesRemaining = 99, timeisRunning = false, timeRemaining = 0f, swordDamage = 2, explosionDamage = 10, playerAttacked = false, currentWaveParams = new WaveParams() };
+    public GameState CurrentState = new GameState();
 
     // Audio
     private AudioSource audioSource;
     public AudioClip fullHeatSound;
+
 
     private void Start()
     {
@@ -87,6 +90,7 @@ public class GameManager : MonoBehaviour
         }
 
         GameManager.Instance.heat = 100f;
+        ResetGameState();
     }
 
 
@@ -95,9 +99,10 @@ public class GameManager : MonoBehaviour
     private void StartGame()
     {
         if (CurrentState.gameStarted) return;
-
+        _playerInstance.SetActive(true);
 
         CurrentState.gameStarted = true;
+        _UIManager.UpdatePlayerNotifyText("");
         Debug.Log("Starting game");
         NextWave();
     }
@@ -125,6 +130,7 @@ public class GameManager : MonoBehaviour
     {
         CurrentState.waveNumber++;
         _UIManager.UpdateWaveDisplay(CurrentState.waveNumber);
+        _UIManager.UpdateTimeDisplay(-1); //clear the time display
 
         //Spawn forge in random location
         int randomIndex = Random.Range(0, _possibleForgePositions.Length);
@@ -137,7 +143,6 @@ public class GameManager : MonoBehaviour
 
         CurrentState.currentWaveParams = waveParams;
         CurrentState.enemiesRemaining = waveParams.enemyCount;
-        Debug.Log("Spawned " + CurrentState.enemiesRemaining + " enemies");
 
     }
 
@@ -165,14 +170,18 @@ public class GameManager : MonoBehaviour
         _UIManager.UpdateHealthDisplay(CurrentState.playerHealth);
         _UIManager.UpdateHeatDisplay(CurrentState.playerHeat);
 
-
         if (!CurrentState.gameStarted)
         {
             CurrentState.gameEnded = false;
+            //activate player if not active
             if (Input.GetKeyDown(KeyCode.Return)) StartGame();
             return;
         }
 
+        //if game is paused or ended, don't update the state
+        if (CurrentState.gameEnded || CurrentState.gamePaused) return;
+
+        // handle player attacked by enemy
         if (CurrentState.playerAttacked)
         {
             CurrentState.playerAttacked = false;
@@ -181,44 +190,84 @@ public class GameManager : MonoBehaviour
             Debug.Log("Player took damage - health: " + CurrentState.playerHealth);
 
             //play enemy got hit sound
+
+
             // maybe add a force to knock the player back
+
 
 
         }
 
+        // handle player death
         if (CurrentState.playerHealth <= 0)
         {
             CurrentState.gameEnded = true;
+            DestroyRemainingEnemies();
+            ResetGameState();
+            _UIManager.UpdatePlayerNotifyText("GAME OVER: Press [return] to start the game!");
+            _playerInstance.SetActive(false); //deactivate player
+
             //
             //end the game and go back to ui main menu
             //
         }
 
-        if (CurrentState.enemiesRemaining <= 0)
+        // handle wave completion
+        if (CurrentState.enemiesRemaining <= 0 && !CurrentState.timeisRunning)
         {
-            Debug.Log("Wave " + CurrentState.waveNumber + " completed");
             CurrentState.timeisRunning = true;
+            CurrentState.timeRemaining = timeBetweenWaves;
+            Debug.Log("Wave " + CurrentState.waveNumber + " completed");
             StartCoroutine(StartTimer());
         }
 
         GameManager.Instance.playerKillCount = CurrentState.playerKillCount;
 
+    }
 
+    private void ResetGameState()
+    {
+        CurrentState.gameStarted = false;
+        CurrentState.gamePaused = false;
+        CurrentState.gameEnded = false;
+        CurrentState.waveNumber = 0;
+        CurrentState.playerKillCount = 0;
+        CurrentState.playerHealth = 100;
+        CurrentState.playerHeat = 100f;
+        CurrentState.enemiesRemaining = 99;
+        CurrentState.timeisRunning = false;
+        CurrentState.timeRemaining = 0f;
+        CurrentState.swordDamage = 2;
+        CurrentState.explosionDamage = 10;
+        CurrentState.playerAttacked = false;
+        CurrentState.currentWaveParams = new WaveParams();
 
+        _UIManager.ResetDisplay();
+    }
+
+    // clears remaining enemies when game ends
+    private void DestroyRemainingEnemies()
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (GameObject enemy in enemies)
+        {
+            Destroy(enemy);
+        }
     }
 
     // -----------------------------------------------------------------------------------------------------------------------------------------------------------
     // Begin countdown and then start the next wave
     IEnumerator StartTimer()
     {
+        _UIManager.UpdateWaveDisplay(-1); //display notice that next wave is coming
         while (true)
         {
-            yield return new WaitForSeconds(1f); // Wait for 1 second
+            yield return new WaitForSeconds(0.1f); // Wait for .1 second
             if (!isPaused && CurrentState.timeisRunning)
             {
                 if (CurrentState.timeRemaining > 0f)
                 {
-                    CurrentState.timeRemaining -= 1;
+                    CurrentState.timeRemaining -= 0.1f;
                     _UIManager.UpdateTimeDisplay(CurrentState.timeRemaining);
 
                     //maybe play a ticking sound here for the clock
@@ -226,8 +275,9 @@ public class GameManager : MonoBehaviour
                 else
                 {
                     CurrentState.timeisRunning = false;
-                    CurrentState.timeRemaining = timeBetweenWaves;
                     NextWave();
+                    break;
+
                 }
 
             }

@@ -37,12 +37,6 @@ public class EnemyWander : MonoBehaviour
 
     void Update()
     {
-        // add this later
-        /*(if (_gameManager.CurrentState.gameEnded)
-        {
-            Destroy(gameObject);
-            return;
-        }*/
 
         if (health <= 0)
         {
@@ -107,13 +101,18 @@ public class EnemyWander : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         //Debug.Log("enemy collided with: " + collision.gameObject.name + " tag: " + collision.gameObject.tag);
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player") && !_gameManager.CurrentState.playerAttacked) // avoid causing player more dammage if player already taking damage
         {
             _gameManager.CurrentState.playerAttacked = true;
         }
-        else if (collision.gameObject.CompareTag("Sword"))
+        else if (collision.gameObject.CompareTag("Sword") && GameManager.Instance.hit) // only take damage if player is attacking
         {
             health -= swordDamage;
+
+            //
+            // maybe add a sound or animation here for enemy took damage
+            //
+
         }
         //explosion damage is instant death handled by DestroyEnemiesInRadius.cs
     }

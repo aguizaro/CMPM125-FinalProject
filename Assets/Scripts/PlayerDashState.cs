@@ -77,10 +77,20 @@ public class PlayerDashState : PlayerBaseState
     {
       player.SwitchState(player.IdleState);
     }
-    if (Input.GetKeyDown(KeyCode.Mouse0))
+
+    if (Input.GetKeyDown(KeyCode.Mouse0) && (GameManager.Instance.heat >= PlayerIdleState.SwingCost))
     {
       player.SwitchState(player.AttackingState);
+      GameManager.Instance.heat -= PlayerIdleState.SwingCost;
     }
+
+    else if (Input.GetKeyDown(KeyCode.E) && (GameManager.Instance.heat >= PlayerIdleState.ExplosionCost))
+    {
+      player.SwitchState(player.ExplosionState);
+      GameManager.Instance.heat -= PlayerIdleState.ExplosionCost;
+    }
+
+
     //  rb.AddForce(0, 0, dashForce, ForceMode.Impulse);
     //_previousPos = _currentPos;
     //Debug.Log("call me asparagus");

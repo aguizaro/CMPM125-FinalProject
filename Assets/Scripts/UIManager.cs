@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour
     private Slider _playerHealth;
     private Slider _heatBar;
     private TMP_Text _heatText;
+    private TMP_Text _playerNotifyText;
     private GameManager _gameManager;
 
 
@@ -24,14 +25,16 @@ public class UIManager : MonoBehaviour
         _heatBar = transform.Find("HeatBar").gameObject.GetComponent<Slider>();
         _heatText = transform.Find("HeatBarText").gameObject.GetComponent<TMP_Text>();
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        _playerNotifyText = transform.Find("PlayerNotify").gameObject.GetComponent<TMP_Text>();
     }
 
-    void ResetDisplay()
+    public void ResetDisplay()
     {
         _timeText.text = "";
         _playerHealth.value = 100;
         _heatBar.value = 50;
         _waveCountText.text = "";
+        _playerNotifyText.text = "Press [return] to start the game!";
     }
 
     void Start()
@@ -42,10 +45,12 @@ public class UIManager : MonoBehaviour
     // public update methods for UI elements ---------------------------------------------------------------------------------------------------
     public void UpdateTimeDisplay(float counter)
     {
-        int minutes = (int)(counter / 60);
-        int seconds = (int)(counter % 60);
-        string timeString = string.Format("{0:00}:{1:00}", minutes, seconds);
-        _timeText.text = "Time: " + timeString;
+        if (counter == -1)
+        { //clear the time display if passed arg is -1
+            _timeText.text = "";
+            return;
+        }
+        _timeText.text = counter.ToString("F1");
     }
 
     public void UpdateHealthDisplay(float currentHealth)
@@ -55,6 +60,11 @@ public class UIManager : MonoBehaviour
 
     public void UpdateWaveDisplay(int waveNumber)
     {
+        if (waveNumber == -1)
+        {
+            _waveCountText.text = "Next wave in:";
+            return;
+        }
         _waveCountText.text = "Wave: " + waveNumber;
     }
 
@@ -77,4 +87,10 @@ public class UIManager : MonoBehaviour
             _heatText.color = Color.blue;
         }
     }
+
+    public void UpdatePlayerNotifyText(string message)
+    {
+        _playerNotifyText.text = message;
+    }
+
 }
