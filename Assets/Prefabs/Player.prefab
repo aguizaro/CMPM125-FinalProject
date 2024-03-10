@@ -53,10 +53,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 754425c02784544c190228b854d0018d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 0}
   move: {x: 0, y: 0, z: 0}
-  playerSpeed: 10
-  jumpHeight: 4
+  playerSpeed: 15
+  playerBoost: 30
+  jumpHeight: 6
   gravityValue: -120
   rotationSensitivity: 10
 --- !u!33 &7578154422613513881
@@ -173,7 +173,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 126
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &2619150659631067682
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -181,7 +181,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2682581025691840615}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bdd00338500cce74fb1be7adaab7cd02, type: 3}
   m_Name: 
@@ -203,6 +203,7 @@ GameObject:
   - component: {fileID: 7597073532425004904}
   - component: {fileID: 3695546255830977408}
   - component: {fileID: 9039571216649234241}
+  - component: {fileID: 3685762912557485399}
   m_Layer: 0
   m_Name: Cylinder
   m_TagString: Sword
@@ -218,13 +219,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6969934691225111191}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.4848096, y: -0, z: -0, w: 0.8746197}
-  m_LocalPosition: {x: 0.73, y: 0.3267, z: 0.781}
-  m_LocalScale: {x: 0.062748, y: 1.2453, z: 0.09495142}
+  m_LocalRotation: {x: 0.48380053, y: 0.031263746, z: -0.056401286, w: 0.8727993}
+  m_LocalPosition: {x: 0.73, y: 0.487, z: 1.037}
+  m_LocalScale: {x: 0.062748, y: 1.6866344, z: 0.09495142}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8223051850992597310}
-  m_LocalEulerAnglesHint: {x: 58, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 58, y: 0, z: -7.395}
 --- !u!33 &464278265101201780
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -296,10 +297,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5000001
+  m_Radius: 1.3545306
   m_Height: 2
   m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+  m_Center: {x: 0.06999993, y: 0.029999968, z: 0.099999964}
 --- !u!95 &3695546255830977408
 Animator:
   serializedVersion: 7
@@ -329,12 +330,39 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6969934691225111191}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7a4bbe50932cb28488e28aa249595388, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 3695546255830977408}
+--- !u!54 &3685762912557485399
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6969934691225111191}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &8662308035731445944
 GameObject:
   m_ObjectHideFlags: 0

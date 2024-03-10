@@ -20,10 +20,10 @@ public class PlayerAttackingState : PlayerBaseState
         animator = Sword.GetComponent<Animator>();
         Attack();
         //animator.GetComponent.Animation<>();
-       // GameManager.Instance.attack = true;
+        // GameManager.Instance.attack = true;
         GameManager.Instance.hit = true;
         GameManager.Instance.movable = false;
-       // }
+        // }
     }
     void Attack()
     {
@@ -33,7 +33,7 @@ public class PlayerAttackingState : PlayerBaseState
     {
         if (message.Equals("AttackAnimationEnded"))
         {
-            
+
             GameManager.Instance.attack = false;
             GameManager.Instance.hit = false;
             //pc_anim.SetBool("attack", false);
@@ -43,7 +43,7 @@ public class PlayerAttackingState : PlayerBaseState
 
     public override void UpdateState(PlayerStateManager player, GameObject raidus)
     {
-        if(GameManager.Instance.attack == false)
+        if (GameManager.Instance.attack == false)
         {
             player.SwitchState(player.IdleState);
         }

@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 6588846378246598187}
   - component: {fileID: 4728786147512723750}
   - component: {fileID: 3794039559050228457}
-  - component: {fileID: 6141214517768517640}
   - component: {fileID: 8083386734758732094}
   - component: {fileID: 4725887035225364794}
   m_Layer: 0
@@ -33,7 +32,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 14.74, y: 0.98, z: 21.6}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -105,6 +104,9 @@ MonoBehaviour:
   wanderRadius: 10
   wanderTimer: 5
   speed: 2
+  health: 0
+  strength: 0
+  swordDamage: 0
 --- !u!195 &3794039559050228457
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -127,20 +129,6 @@ NavMeshAgent:
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &6141214517768517640
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3109142107695833682}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 344065fb99510ff43a2b1ac1dca5e0d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 1
-  enemy: {fileID: 3109142107695833682}
 --- !u!54 &8083386734758732094
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -167,7 +155,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!65 &4725887035225364794
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -3,29 +3,36 @@ using UnityEngine;
 public class PlayerIdleState : PlayerBaseState
 {
     //public GameObject radius;
-    // Start is called before the first frame update
+
+    public const float SwingCost = 5.0f;
+    public const float ExplosionCost = 30.0f;
+
     public override void EnterState(PlayerStateManager player, GameObject radius)
     {
         //radius = GameObject.FindWithTag("Explosion");
         //radius.SetActive(false);
-        Debug.Log("Hello from the Idle state");
         GameManager.Instance.movable = true;
     }
 
     public override void UpdateState(PlayerStateManager player, GameObject radius)
-    {
-        if (Input.GetKeyDown(KeyCode.Mouse0) && (GameManager.Instance.heat >=20.0f))
+    {   // allow attack if heat is greater than 20
+        if (Input.GetKeyDown(KeyCode.Mouse0) && (GameManager.Instance.heat >= SwingCost))
         {
             player.SwitchState(player.AttackingState);
+            GameManager.Instance.heat -= SwingCost;
+
         }
+        // allow dash - has cooldown 
         else if (Input.GetKeyDown(KeyCode.Mouse1))
         {
             player.SwitchState(player.DashState);
         }
-        else if (Input.GetKeyDown(KeyCode.LeftShift) && (GameManager.Instance.heat >= 50.0f))
+        // allow explosion if heat is greater than 50
+        else if (Input.GetKeyDown(KeyCode.E) && (GameManager.Instance.heat >= ExplosionCost))
         {
-           // radius.SetActive(true);
+            // radius.SetActive(true);
             player.SwitchState(player.ExplosionState);
+            GameManager.Instance.heat -= ExplosionCost;
         }
     }
 
