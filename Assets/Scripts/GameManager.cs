@@ -78,6 +78,8 @@ public class GameManager : MonoBehaviour
     // Audio
     private AudioSource audioSource;
     public AudioClip fullHeatSound;
+    public AudioClip playerHitSound;  // Added audio clip for player hit sound
+
 
 
     private void Start()
@@ -190,6 +192,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("Player took damage - health: " + CurrentState.playerHealth);
 
             //play enemy got hit sound
+            audioSource.PlayOneShot(playerHitSound);
 
 
             // maybe add a force to knock the player back
