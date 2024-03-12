@@ -34,8 +34,8 @@ public class PlayerDash : MonoBehaviour
     //pm = GetComponent<PlayerController>();
 
     GameManager.Instance.dashing = false;
-
-  }
+    GameManager.Instance.indashed = false;
+    }
   //private void Dash()
   //{
   //  Vector3 forceToApply = orientation.forward * dashForce + orientation.up * dashUpwardForce;
@@ -50,7 +50,8 @@ public class PlayerDash : MonoBehaviour
     controlls = GetComponent<CharacterController>();
     moveScript = GetComponent<PlayerController>();
 
-    indashed = true;
+        //indashed = true;
+    GameManager.Instance.indashed = true;
     StartCoroutine(Dash());
     StartCoroutine(Cooldown(3));
   }
@@ -77,9 +78,9 @@ public class PlayerDash : MonoBehaviour
   {
 
     yield return new WaitForSeconds(Time);
-    indashed = false;
+    GameManager.Instance.indashed = false;
 
-  }
+    }
   //private void ResetDash()
   //{
 

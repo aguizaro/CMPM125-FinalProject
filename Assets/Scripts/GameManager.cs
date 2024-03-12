@@ -59,6 +59,7 @@ public class GameManager : MonoBehaviour
     public bool hot { get; set; }
     public bool attack { get; set; }
     public bool isPaused { get; set; }
+    public bool indashed { get; set; }
     public bool dashing { get; set; }
     public bool movable { get; set; }
     public bool explosive { get; set; }

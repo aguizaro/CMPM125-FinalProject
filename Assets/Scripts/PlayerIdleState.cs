@@ -23,7 +23,7 @@ public class PlayerIdleState : PlayerBaseState
 
         }
         // allow dash - has cooldown 
-        else if (Input.GetKeyDown(KeyCode.Mouse1))
+        else if (Input.GetKeyDown(KeyCode.Mouse1) && !GameManager.Instance.indashed)
         {
             player.SwitchState(player.DashState);
         }
