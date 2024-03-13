@@ -108,6 +108,7 @@ public class EnemyWander : MonoBehaviour
         else if (collision.gameObject.CompareTag("Sword") && GameManager.Instance.hit) // only take damage if player is attacking
         {
             health -= swordDamage;
+            Debug.Log("player hit enemy for " + swordDamage + " damage. Enemy is now at " + health + " health");
 
             //
             // maybe add a sound or animation here for enemy took damage

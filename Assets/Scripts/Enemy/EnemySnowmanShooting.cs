@@ -8,7 +8,7 @@ public class EnemySnowmanShooting : MonoBehaviour
     public float xOffset = 1f;
     public float yOffset = -1f;
     public float shootingInterval = 1f;
-    public float projectileSpeed = 10f;
+    public float projectileSpeed = 100f;
     public float maxShootDistance = 10f; // Maximum distance to shoot at the player
 
     void Start()
@@ -33,12 +33,14 @@ public class EnemySnowmanShooting : MonoBehaviour
                     GameObject projectile = Instantiate(projectilePrefab, spawnPosition, Quaternion.identity);
                     StartCoroutine(DestroyProjectile(projectile));
                     Rigidbody rb = projectile.GetComponent<Rigidbody>();
-                    rb.velocity = direction * projectileSpeed;
+                    rb.AddForce(direction * projectileSpeed * 100, ForceMode.VelocityChange);
                 }
             }
         }
     }
 
+
+    // this does not always destroy the projectile - case where the snowman gets killed before this coroutine finishes
     IEnumerator DestroyProjectile(GameObject projectile)
     {
         yield return new WaitForSeconds(2f);

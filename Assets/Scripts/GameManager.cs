@@ -67,8 +67,10 @@ public class GameManager : MonoBehaviour
 
     // Game State Variables ---------------------------------------------------------------------------------------------------------------------------
     [SerializeField] private GameObject _enemyPrefab;
+    [SerializeField] private GameObject _arrow;
     [SerializeField] private GameObject _playerInstance;
     [SerializeField] private float playerKnockBack = 50f;
+    [SerializeField] private float playerHealthRegenAmount = 0.017f;
     [SerializeField] private GameObject _forge;
     [SerializeField] private UIManager _UIManager;
     [SerializeField] private float timeBetweenWaves = 20f;
@@ -93,6 +95,8 @@ public class GameManager : MonoBehaviour
 
         GameManager.Instance.heat = 100f;
         ResetGameState();
+
+        _arrow.SetActive(false);
     }
 
 
@@ -187,7 +191,7 @@ public class GameManager : MonoBehaviour
         if (CurrentState.playerAttacked)
         {
             CurrentState.playerAttacked = false;
-            CurrentState.playerHealth -= 10;
+            CurrentState.playerHealth -= 2;
 
             Debug.Log("Player took damage - health: " + CurrentState.playerHealth);
 
@@ -196,9 +200,21 @@ public class GameManager : MonoBehaviour
 
 
             // maybe add a force to knock the player back
+            //_playerInstance.GetComponent<Rigidbody>().AddForce(-_playerInstance.transform.forward * playerKnockBack, ForceMode.Impulse);
+            //Debug.Log("Player knocked back");
 
+        }
 
+        if (CurrentState.playerHeat <= 20 && !_arrow.activeSelf)
+        {
+            _arrow.SetActive(true);
+            Debug.Log("Player health is low");
+        }
 
+        if (CurrentState.playerHeat > 20 && _arrow.activeSelf)
+        {
+            _arrow.SetActive(false);
+            Debug.Log("Player health is back to normal");
         }
 
         // handle player death
@@ -213,6 +229,10 @@ public class GameManager : MonoBehaviour
             //
             //end the game and go back to ui main menu
             //
+        }
+        else if (CurrentState.playerHealth < 100 && CurrentState.playerHealth > 0)
+        {
+            CurrentState.playerHealth += playerHealthRegenAmount; //very slow health regen on player
         }
 
         // handle wave completion
