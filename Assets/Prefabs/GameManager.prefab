@@ -44,11 +44,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62f859e6964b8b04c9195709392f5db2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyPrefab: {fileID: 3109142107695833682, guid: 6f8c3306993864f94b208d2e9120ed08,
+  _enemyPrefab: {fileID: 5937462602929296320, guid: 93fb4029d69ed6c44801634ce0ad9c1b,
     type: 3}
+  _arrow: {fileID: 0}
   _playerInstance: {fileID: 0}
-  playerKnockBack: 50
+  playerKnockBack: 500000
+  playerHealthRegenAmount: 0.017
   _forge: {fileID: 0}
   _UIManager: {fileID: 0}
   timeBetweenWaves: 20
   fullHeatSound: {fileID: 8300000, guid: f799f9483f9ab45bdb32fa0771feb1d1, type: 3}
+  playerHitSound: {fileID: 0}

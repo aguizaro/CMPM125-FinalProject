@@ -73,6 +73,9 @@ public class PlayerDashState : PlayerBaseState
   //   }
   public override void UpdateState(PlayerStateManager player, GameObject radius)
   {
+
+    if (!GameManager.Instance.isActive) return;
+
     if (!GameManager.Instance.dashing)
     {
       player.SwitchState(player.IdleState);

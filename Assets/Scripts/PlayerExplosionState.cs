@@ -32,6 +32,8 @@ public class PlayerExplosionState : PlayerBaseState
     //  }
     public override void UpdateState(PlayerStateManager player, GameObject radius)
     {
+        if (!GameManager.Instance.isActive) return;
+
         if (GameManager.Instance.explosive == false)
         {
             radius.SetActive(false);

@@ -43,6 +43,8 @@ public class PlayerAttackingState : PlayerBaseState
 
     public override void UpdateState(PlayerStateManager player, GameObject raidus)
     {
+        if (!GameManager.Instance.isActive) return;
+
         if (GameManager.Instance.attack == false)
         {
             player.SwitchState(player.IdleState);

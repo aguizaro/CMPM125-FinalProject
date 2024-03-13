@@ -23,7 +23,7 @@ public class EnemySnowmanShooting : MonoBehaviour
         {
             yield return new WaitForSeconds(shootingInterval);
 
-            if (player != null)
+            if (player != null && GameManager.Instance.isActive)
             {
                 float distanceToPlayer = Vector3.Distance(transform.position, player.position);
                 if (distanceToPlayer <= maxShootDistance)

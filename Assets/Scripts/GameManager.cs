@@ -20,8 +20,6 @@ public struct WaveParams
 public struct GameState
 {
     public bool gameStarted;
-    public bool gamePaused;
-    public bool gameEnded;
     public int waveNumber;
     public int playerKillCount;
     public float playerHealth;
@@ -64,6 +62,7 @@ public class GameManager : MonoBehaviour
     public bool explosive { get; set; }
     public float heat { get; set; }
     public bool hit { get; set; }
+    public bool isActive { get; set; }
 
     // Game State Variables ---------------------------------------------------------------------------------------------------------------------------
     [SerializeField] private GameObject _enemyPrefab;
@@ -95,20 +94,24 @@ public class GameManager : MonoBehaviour
 
         GameManager.Instance.heat = 100f;
         ResetGameState();
-
         _arrow.SetActive(false);
     }
 
 
     // Spawning Waves/Enemies --------------------------------------------------------------------------------------------
 
-    private void StartGame()
+    public void StartGame()
     {
-        if (CurrentState.gameStarted) return;
+        if (CurrentState.gameStarted) return; //if game is already started, don't start it again
+
         _playerInstance.SetActive(true);
+        _UIManager.UpdatePlayerNotifyText("");
+        ResetGameState();
 
         CurrentState.gameStarted = true;
-        _UIManager.UpdatePlayerNotifyText("");
+        GameManager.Instance.isActive = true;
+        GameManager.Instance.heat = 100f;
+
         Debug.Log("Starting game");
         NextWave();
     }
@@ -138,6 +141,7 @@ public class GameManager : MonoBehaviour
         _UIManager.UpdateWaveDisplay(CurrentState.waveNumber);
         _UIManager.UpdateTimeDisplay(-1); //clear the time display
 
+
         //Spawn forge in random location
         int randomIndex = Random.Range(0, _possibleForgePositions.Length);
         _forge.transform.position = _possibleForgePositions[randomIndex];
@@ -149,6 +153,9 @@ public class GameManager : MonoBehaviour
 
         CurrentState.currentWaveParams = waveParams;
         CurrentState.enemiesRemaining = waveParams.enemyCount;
+
+        _UIManager.UpdateEnemiesRemaining(CurrentState.currentWaveParams.enemyCount);
+        _UIManager.UpdateKillCount(CurrentState.playerKillCount);
 
     }
 
@@ -168,24 +175,16 @@ public class GameManager : MonoBehaviour
     // Check current state every frame ----------------------------------------------------------------------------------------------------------------------------
     void Update()
     {
-        // add this later
-        //if (CurrentState.gameEnded) return;
-
+        // always update the game state
         CurrentState.playerHeat = GameManager.Instance.heat;
-        CurrentState.gamePaused = GameManager.Instance.isPaused;
         _UIManager.UpdateHealthDisplay(CurrentState.playerHealth);
         _UIManager.UpdateHeatDisplay(CurrentState.playerHeat);
 
-        if (!CurrentState.gameStarted)
-        {
-            CurrentState.gameEnded = false;
-            //activate player if not active
-            if (Input.GetKeyDown(KeyCode.Return)) StartGame();
-            return;
-        }
+        if (!CurrentState.gameStarted || GameManager.Instance.isPaused) GameManager.Instance.isActive = false;
+        else GameManager.Instance.isActive = true;
 
-        //if game is paused or ended, don't update the state
-        if (CurrentState.gameEnded || CurrentState.gamePaused) return;
+
+        if (!GameManager.Instance.isActive) return; //if game is paused or ended, don't update the state
 
         // handle player attacked by enemy
         if (CurrentState.playerAttacked)
@@ -220,11 +219,15 @@ public class GameManager : MonoBehaviour
         // handle player death
         if (CurrentState.playerHealth <= 0)
         {
-            CurrentState.gameEnded = true;
+            CurrentState.gameStarted = false;
             DestroyRemainingEnemies();
-            ResetGameState();
-            _UIManager.UpdatePlayerNotifyText("GAME OVER: Press [return] to start the game!");
+
             _playerInstance.SetActive(false); //deactivate player
+
+
+            Debug.Log("Game Over - Player died");
+            _UIManager.UpdatePlayerNotifyText("Game Over!");
+            Invoke(nameof(GameOver), 3f); //restart the game after 3 seconds
 
             //
             //end the game and go back to ui main menu
@@ -248,11 +251,17 @@ public class GameManager : MonoBehaviour
 
     }
 
-    private void ResetGameState()
+    // reset game state and activate play again menu
+    private void GameOver()
+    {
+        ResetGameState();
+        Debug.Log("Calling UIManager PlayAgain ");
+        _UIManager.PlayAgain();
+    }
+
+    public void ResetGameState()
     {
         CurrentState.gameStarted = false;
-        CurrentState.gamePaused = false;
-        CurrentState.gameEnded = false;
         CurrentState.waveNumber = 0;
         CurrentState.playerKillCount = 0;
         CurrentState.playerHealth = 100;
@@ -265,7 +274,13 @@ public class GameManager : MonoBehaviour
         CurrentState.playerAttacked = false;
         CurrentState.currentWaveParams = new WaveParams();
 
-        _UIManager.ResetDisplay();
+        GameManager.Instance.isPaused = false;
+        _playerInstance.transform.position = new Vector3(0, 1.03f, 0);
+        _playerInstance.transform.rotation = Quaternion.identity;
+
+        _UIManager.ResetHUDisplay();
+
+        DestroyRemainingEnemies();
     }
 
     // clears remaining enemies when game ends

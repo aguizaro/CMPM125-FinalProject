@@ -15,7 +15,10 @@ public class PlayerIdleState : PlayerBaseState
     }
 
     public override void UpdateState(PlayerStateManager player, GameObject radius)
-    {   // allow attack if heat is greater than 20
+    {
+        if (!GameManager.Instance.isActive) return;
+
+        // allow attack if heat is greater than 20
         if (Input.GetKeyDown(KeyCode.Mouse0) && (GameManager.Instance.heat >= SwingCost))
         {
             player.SwitchState(player.AttackingState);

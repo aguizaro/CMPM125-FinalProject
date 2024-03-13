@@ -15,6 +15,7 @@ public class EnemyWander : MonoBehaviour
     private GameObject target;
     private NavMeshAgent agent;
     private GameManager _gameManager;
+    private UIManager _uiManager;
     private float timer;
 
 
@@ -27,6 +28,7 @@ public class EnemyWander : MonoBehaviour
         SetNewRandomDestination();
         target = GameObject.FindWithTag("Player");
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        _uiManager = GameObject.Find("UI").GetComponent<UIManager>();
 
         //set enemy properties from game manager state
         speed = _gameManager.CurrentState.currentWaveParams.enemySpeed;
@@ -38,11 +40,25 @@ public class EnemyWander : MonoBehaviour
     void Update()
     {
 
+        //if game is paused, stop the enemy
+        if (!GameManager.Instance.isActive)
+        {
+            agent.isStopped = true;
+            return;
+        } //otherwise resume
+        else if (agent.isStopped)
+        {
+            agent.isStopped = false;
+        }
+
         if (health <= 0)
         {
             //update the game manager
             _gameManager.CurrentState.playerKillCount++;
+            _uiManager.UpdateKillCount(_gameManager.CurrentState.playerKillCount);
+
             _gameManager.CurrentState.enemiesRemaining--;
+            _uiManager.UpdateEnemiesRemaining(_gameManager.CurrentState.enemiesRemaining);
 
             // --
             //play a death animation or sound or something here

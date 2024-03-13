@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 // used unity's example code: https://docs.unity3d.com/ScriptReference/CharacterController.Move.html
@@ -29,6 +30,9 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (!GameManager.Instance.isActive) return;
+
+
         if (GameManager.Instance.movable == true)
         {
 
@@ -37,8 +41,6 @@ public class PlayerController : MonoBehaviour
             {
                 playerVelocity.y = 0f;
             }
-
-            //rotate ur mom
 
             //rotate player left right (Y axis)
             float mouseX = Input.GetAxis("Mouse X") * rotationSensitivity;
