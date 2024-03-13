@@ -111,8 +111,6 @@ public class GameManager : MonoBehaviour
         CurrentState.gameStarted = true;
         GameManager.Instance.isActive = true;
         GameManager.Instance.heat = 100f;
-
-        Debug.Log("Starting game");
         NextWave();
     }
 
@@ -126,6 +124,8 @@ public class GameManager : MonoBehaviour
 
         Enemy.gameObject.GetComponent<EnemyWander>().speed = waveParams.enemySpeed;
         Enemy.gameObject.GetComponent<EnemyWander>().health = waveParams.enemyHealth;
+        Enemy.gameObject.GetComponent<EnemyWander>().strength = waveParams.enemyStrength;
+        Enemy.gameObject.GetComponent<EnemyWander>().swordDamage = CurrentState.swordDamage;
     }
     public void SpawnWave(WaveParams waveParams)
     {
@@ -145,7 +145,6 @@ public class GameManager : MonoBehaviour
         //Spawn forge in random location
         int randomIndex = Random.Range(0, _possibleForgePositions.Length);
         _forge.transform.position = _possibleForgePositions[randomIndex];
-        Debug.Log("new forge position: " + _forge.transform.position);
 
         // define wave parameters and spawn wave
         WaveParams waveParams = GetWaveParams(CurrentState.waveNumber);
@@ -153,6 +152,7 @@ public class GameManager : MonoBehaviour
 
         CurrentState.currentWaveParams = waveParams;
         CurrentState.enemiesRemaining = waveParams.enemyCount;
+        CurrentState.explosionDamage = 10;
 
         _UIManager.UpdateEnemiesRemaining(CurrentState.currentWaveParams.enemyCount);
         _UIManager.UpdateKillCount(CurrentState.playerKillCount);
@@ -168,6 +168,7 @@ public class GameManager : MonoBehaviour
         waveParams.location = transform.position; // spawn location
         waveParams.radius = 40f + waveNumber * 2f; // 2m increase in enemy spawn radius per wave
         waveParams.enemyHealth = (waveNumber <= 2) ? 1 : 2; // 1 health for first 3 waves, 2 health for all subsequent waves
+        waveParams.enemyStrength = 2;
         return waveParams;
     }
 

@@ -24,11 +24,15 @@ public class PlayerIdleState : PlayerBaseState
             player.SwitchState(player.AttackingState);
             GameManager.Instance.heat -= SwingCost;
 
+            //play swing sound
+
         }
         // allow dash - has cooldown 
         else if (Input.GetKeyDown(KeyCode.Mouse1))
         {
             player.SwitchState(player.DashState);
+
+            //dash sound
         }
         // allow explosion if heat is greater than 50
         else if (Input.GetKeyDown(KeyCode.E) && (GameManager.Instance.heat >= ExplosionCost))
@@ -36,6 +40,8 @@ public class PlayerIdleState : PlayerBaseState
             // radius.SetActive(true);
             player.SwitchState(player.ExplosionState);
             GameManager.Instance.heat -= ExplosionCost;
+
+            //play explositon sound
         }
     }
 

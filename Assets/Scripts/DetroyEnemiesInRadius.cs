@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TriggerCheck : MonoBehaviour
+public class DestroyEnemiesInRadius : MonoBehaviour
 {
     private GameManager _gameManager;
     private void Start()
@@ -13,9 +13,12 @@ public class TriggerCheck : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-            Destroy(other.gameObject);
+            Debug.Log("explosion collided with: " + other.gameObject.name + " tag: " + other.gameObject.tag);
+
             _gameManager.CurrentState.playerKillCount++;
             _gameManager.CurrentState.enemiesRemaining--;
+
+            Destroy(other.gameObject);
             Debug.Log("Explosion killed enemy\nTotal: " + _gameManager.CurrentState.playerKillCount + " enemies killed, " + _gameManager.CurrentState.enemiesRemaining + " enemies remaining");
         }
     }

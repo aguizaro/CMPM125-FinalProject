@@ -10,7 +10,8 @@ public class EnemyWander : MonoBehaviour
     public float speed;
     public int health;
     public int strength;
-    public int swordDamage;
+    public int swordDamage = 2;
+    public int explosionDamage = 10;
     private bool sees = false;
     private GameObject target;
     private NavMeshAgent agent;
@@ -116,6 +117,7 @@ public class EnemyWander : MonoBehaviour
     // Collision detection ---------------------------------------------------------------------------------------
     private void OnCollisionEnter(Collision collision)
     {
+        Debug.Log("enemy collided with: " + collision.gameObject.name + " tag: " + collision.gameObject.tag);
         //Debug.Log("enemy collided with: " + collision.gameObject.name + " tag: " + collision.gameObject.tag);
         if (collision.gameObject.CompareTag("Player") && !_gameManager.CurrentState.playerAttacked) // avoid causing player more dammage if player already taking damage
         {
@@ -131,6 +133,13 @@ public class EnemyWander : MonoBehaviour
             //
 
         }
+        else if (collision.gameObject.CompareTag("Explosion"))
+        {
+            health -= explosionDamage;
+
+            Debug.Log("player blew up enemy for " + explosionDamage + " damage. Enemy is now at " + health + " health");
+        }
+
         //explosion damage is instant death handled by DestroyEnemiesInRadius.cs
     }
 }

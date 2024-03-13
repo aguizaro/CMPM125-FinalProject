@@ -193,6 +193,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 8878150995079590029, guid: 48af6036c61cb8546b6af4a0ea8e0d8f,
+        type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8967613842972123071, guid: 48af6036c61cb8546b6af4a0ea8e0d8f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -315,6 +320,7 @@ MonoBehaviour:
   health: 0
   strength: 0
   swordDamage: 0
+  explosionDamage: 10
 --- !u!114 &384062934084663878
 MonoBehaviour:
   m_ObjectHideFlags: 0
