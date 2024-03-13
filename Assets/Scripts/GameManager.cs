@@ -63,6 +63,7 @@ public class GameManager : MonoBehaviour
     public float heat { get; set; }
     public bool hit { get; set; }
     public bool isActive { get; set; }
+    public bool isDashing { get; set; }
 
     // Game State Variables ---------------------------------------------------------------------------------------------------------------------------
     [SerializeField] private GameObject _enemyPrefab;
@@ -82,9 +83,10 @@ public class GameManager : MonoBehaviour
     public AudioClip playerHitSound;  // Added audio clip for player hit sound
     public AudioClip swordSwingSound;
     public AudioClip fullHealthSound; // Add this for the full health sound effect
+    public AudioClip DashSound;
 
 
-    private bool fullHealthSoundPlayed = false;
+    private bool fullHealthSoundPlayed = true;
 
 
 
@@ -264,6 +266,13 @@ public class GameManager : MonoBehaviour
         else if (CurrentState.playerHealth < 100.0f)
         {
             fullHealthSoundPlayed = false; // Allow the sound to be played again if health drops below full
+        }
+
+        if (isDashing)
+        {
+            Debug.Log("in dash sound loop: false");
+            isDashing = false;
+            audioSource.PlayOneShot(DashSound);
         }
 
         GameManager.Instance.playerKillCount = CurrentState.playerKillCount;

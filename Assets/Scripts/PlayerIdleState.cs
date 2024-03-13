@@ -31,8 +31,9 @@ public class PlayerIdleState : PlayerBaseState
         else if (Input.GetKeyDown(KeyCode.Mouse1))
         {
             player.SwitchState(player.DashState);
+            Debug.Log("Idle state dash : true");
 
-            //dash sound
+            GameManager.Instance.isDashing = true;
         }
         // allow explosion if heat is greater than 50
         else if (Input.GetKeyDown(KeyCode.E) && (GameManager.Instance.heat >= ExplosionCost))
