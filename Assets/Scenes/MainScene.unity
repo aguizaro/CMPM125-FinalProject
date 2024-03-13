@@ -230,6 +230,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 3624591916555218562, guid: c8f904dc6881f41bcaaabc9c9416e73b,
+        type: 3}
+      propertyPath: dashSpeedChangeFactor
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 8223051850992597310, guid: c8f904dc6881f41bcaaabc9c9416e73b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -660,6 +665,16 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 1840663233}
+    - target: {fileID: 3708935118058801341, guid: 404594a26a9194a7aa530ab4bb70f116,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 159.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3860034751393184267, guid: 404594a26a9194a7aa530ab4bb70f116,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 6491271153939759198, guid: 404594a26a9194a7aa530ab4bb70f116,
         type: 3}
       propertyPath: m_NavMeshData

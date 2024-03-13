@@ -18,12 +18,22 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float rotationSensitivity = 10f;
 
 
+    //dash movement chain
+    private float currentSpeed;
+    private float desiredMoveSpeed;
+    private float lastDesiredMoveSpeed;
+    private bool keepMomentum;
+    public float dashSpeedChangeFactor;
+    //private MovementState lastState;
+
     private void Awake()
     {
         Application.targetFrameRate = 60;
         controller = gameObject.AddComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;
         dash = GetComponent<PlayerDash>();
+        keepMomentum = false;
+        GameManager.Instance.indashed = false;
 
     }
 
@@ -31,7 +41,6 @@ public class PlayerController : MonoBehaviour
     {
         if (GameManager.Instance.movable == true)
         {
-
             groundedPlayer = controller.isGrounded;
             if (groundedPlayer && playerVelocity.y < 0)
             {
@@ -45,11 +54,33 @@ public class PlayerController : MonoBehaviour
             transform.Rotate(Vector3.up * mouseX);
 
             // apply boost on shift
-            var currentSpeed = Input.GetKey(KeyCode.LeftShift) ? playerBoost : playerSpeed;
-
+            currentSpeed = Input.GetKey(KeyCode.LeftShift) ? playerBoost : playerSpeed;
+            desiredMoveSpeed = currentSpeed;
             Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
             // local space to world space
+            if (GameManager.Instance.dashing == true) //activate dash
+            {
+                dash.StartDash();
+            }
             move = transform.TransformDirection(move);
+            bool desiredMoveSpeedHasChange = desiredMoveSpeed != lastDesiredMoveSpeed;
+            if (GameManager.Instance.indashed == true) {
+                keepMomentum = true; speedChangeFactor = dashSpeedChangeFactor;
+            }
+            if (desiredMoveSpeedHasChange)
+            {
+                if (keepMomentum)
+                {
+                    Debug.Log("we made it>");
+                    StopAllCoroutines();
+                    StartCoroutine(SmoothlyLerpMoveSpeed());
+                }
+                else
+                {
+                    StopAllCoroutines();
+                    currentSpeed = desiredMoveSpeed;
+                }
+            }
             controller.Move(move * currentSpeed * Time.deltaTime);
 
 
@@ -58,10 +89,7 @@ public class PlayerController : MonoBehaviour
             {
                 playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
             }
-            if (GameManager.Instance.dashing == true) //activate dash
-            {
-                dash.StartDash();
-            }
+
             // if (Input.GetMouseButtonDown(0))
             // {
             //attack logic
@@ -69,6 +97,26 @@ public class PlayerController : MonoBehaviour
 
             playerVelocity.y += gravityValue * Time.deltaTime;
             controller.Move(playerVelocity * Time.deltaTime);
+            lastDesiredMoveSpeed = desiredMoveSpeed;
         }
+    }
+    private float speedChangeFactor;
+    private IEnumerator SmoothlyLerpMoveSpeed()
+    {
+        Debug.Log("here here here");
+        float time = 0;
+        float difference = Mathf.Abs(desiredMoveSpeed - currentSpeed);
+        float startValue = currentSpeed;
+
+        float boostFactor = speedChangeFactor;
+        while (time < difference)
+        {
+            desiredMoveSpeed = Mathf.Lerp(startValue, desiredMoveSpeed, time / difference);
+            time += Time.deltaTime * boostFactor;
+            yield return null;
+        }
+        currentSpeed = desiredMoveSpeed;
+        speedChangeFactor = 1f;
+        keepMomentum = false;
     }
 }
