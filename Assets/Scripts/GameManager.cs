@@ -81,6 +81,11 @@ public class GameManager : MonoBehaviour
     public AudioClip fullHeatSound;
     public AudioClip playerHitSound;  // Added audio clip for player hit sound
     public AudioClip swordSwingSound;
+    public AudioClip fullHealthSound; // Add this for the full health sound effect
+
+
+    private bool fullHealthSoundPlayed = false;
+
 
 
 
@@ -250,7 +255,18 @@ public class GameManager : MonoBehaviour
         {
             audioSource.PlayOneShot(swordSwingSound);
         }
-            GameManager.Instance.playerKillCount = CurrentState.playerKillCount;
+
+        if (CurrentState.playerHealth >= 100.0f && !fullHealthSoundPlayed)
+        {
+            audioSource.PlayOneShot(fullHealthSound);
+            fullHealthSoundPlayed = true; // Prevent the sound from being played again while health is full
+        }
+        else if (CurrentState.playerHealth < 100.0f)
+        {
+            fullHealthSoundPlayed = false; // Allow the sound to be played again if health drops below full
+        }
+
+        GameManager.Instance.playerKillCount = CurrentState.playerKillCount;
 
     }
 

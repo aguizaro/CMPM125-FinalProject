@@ -628,6 +628,11 @@ PrefabInstance:
       objectReference: {fileID: 1703339749}
     - target: {fileID: 8458372192650921856, guid: 4af090612091542e18634489aafda21d,
         type: 3}
+      propertyPath: fullHealthSound
+      value: 
+      objectReference: {fileID: 8300000, guid: a87f5d8d781e246fca7398f5bfc67046, type: 3}
+    - target: {fileID: 8458372192650921856, guid: 4af090612091542e18634489aafda21d,
+        type: 3}
       propertyPath: swordSwingSound
       value: 
       objectReference: {fileID: 8300000, guid: 1a91153dbf2834aa1943e39298c76c98, type: 3}
