@@ -192,9 +192,6 @@ public class GameManager : MonoBehaviour
             CurrentState.playerAttacked = false;
             CurrentState.playerHealth -= 2;
 
-            Debug.Log("Player took damage - health: " + CurrentState.playerHealth);
-
-            //play enemy got hit sound
             audioSource.PlayOneShot(playerHitSound);
 
 
