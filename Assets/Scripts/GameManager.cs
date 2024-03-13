@@ -80,6 +80,7 @@ public class GameManager : MonoBehaviour
     private AudioSource audioSource;
     public AudioClip fullHeatSound;
     public AudioClip playerHitSound;  // Added audio clip for player hit sound
+    public AudioClip swordSwingSound;
 
 
 
@@ -245,7 +246,11 @@ public class GameManager : MonoBehaviour
             StartCoroutine(StartTimer());
         }
 
-        GameManager.Instance.playerKillCount = CurrentState.playerKillCount;
+        if (Input.GetKeyDown(KeyCode.Mouse0) && (GameManager.Instance.heat >= 5.0f))
+        {
+            audioSource.PlayOneShot(swordSwingSound);
+        }
+            GameManager.Instance.playerKillCount = CurrentState.playerKillCount;
 
     }
 
