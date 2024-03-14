@@ -13,6 +13,7 @@ public class PlayerExplosionState : PlayerBaseState
         GameManager.Instance.movable = false;
         //radius = GameObject.FindWithTag("Explosion");
         radius.SetActive(true);
+        radius.GetComponent<MeshRenderer>().enabled = true;
         animator = radius.GetComponent<Animator>();
         Exploding();
         GameManager.Instance.explosive = true;
@@ -36,6 +37,7 @@ public class PlayerExplosionState : PlayerBaseState
 
         if (GameManager.Instance.explosive == false)
         {
+            radius.GetComponent<MeshRenderer>().enabled = false;
             radius.SetActive(false);
             player.SwitchState(player.IdleState);
 

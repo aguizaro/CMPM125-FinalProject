@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerIdleState : PlayerBaseState
 {
-    //public GameObject radius;
+    public GameObject radius;
 
     public const float SwingCost = 5.0f;
     public const float ExplosionCost = 30.0f;
@@ -41,6 +41,8 @@ public class PlayerIdleState : PlayerBaseState
             // radius.SetActive(true);
             player.SwitchState(player.ExplosionState);
             GameManager.Instance.heat -= ExplosionCost;
+
+
 
             //play explositon sound
         }

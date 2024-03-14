@@ -410,11 +410,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 6930193516917048843, guid: c8f904dc6881f41bcaaabc9c9416e73b,
-        type: 3}
-      propertyPath: m_TagString
-      value: Explosion
-      objectReference: {fileID: 0}
     - target: {fileID: 8223051850992597310, guid: c8f904dc6881f41bcaaabc9c9416e73b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -694,6 +689,16 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 1840663233}
+    - target: {fileID: 3383671674130493477, guid: 404594a26a9194a7aa530ab4bb70f116,
+        type: 3}
+      propertyPath: camOffset.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3383671674130493477, guid: 404594a26a9194a7aa530ab4bb70f116,
+        type: 3}
+      propertyPath: followSpeed
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 3403717670502076023, guid: 404594a26a9194a7aa530ab4bb70f116,
         type: 3}
       propertyPath: m_LocalPosition.y
