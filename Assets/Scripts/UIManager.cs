@@ -57,6 +57,7 @@ public class UIManager : MonoBehaviour
     private GameManager _gameManager;
     private TMP_Text _killCountText;
     private TMP_Text _enemiesRemainingText;
+    private TMP_Text _playerNameDisplay;
 
 
     // Set up references to the UI elements ---------------------------------------------------------------------------------------------------
@@ -98,6 +99,7 @@ public class UIManager : MonoBehaviour
         _playerNotifyText = _canvas.transform.Find("HUD").transform.Find("PlayerNotify").GetComponent<TMP_Text>();
         _killCountText = _canvas.transform.Find("HUD").transform.Find("KillCountText").GetComponent<TMP_Text>();
         _enemiesRemainingText = _canvas.transform.Find("HUD").transform.Find("EnemiesRemainingText").GetComponent<TMP_Text>();
+        _playerNameDisplay = _canvas.transform.Find("HUD").transform.Find("PlayerName").GetComponent<TMP_Text>();
 
         // maybe try this after
         _senseSlider.onValueChanged.AddListener(delegate { _senseSliderVal.text = ((int)(100 * _senseSlider.value)).ToString() + " %"; });
@@ -168,6 +170,8 @@ public class UIManager : MonoBehaviour
     {
         UserSettings.PlayerName = name;
         UserSettings.MouseSensitivity = senseVal;
+
+        UpdatePlayerNameDisplay(name);
 
         //_nameText.text = !string.IsNullOrEmpty(name) ? name : "Guest User";
         _senseSliderVal.text = " :     " + ((int)(senseVal * 100)).ToString() + "%"; //get percent
@@ -293,6 +297,10 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void UpdatePlayerNameDisplay(string playerName)
+    {
+        _playerNameDisplay.text = playerName;
+    }
     public void UpdateKillCount(int killCount)
     {
         _killCountText.text = "Kills: " + killCount;

@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float playerBoost = 20f;
     [SerializeField] private float jumpHeight = 4f;
     [SerializeField] private float gravityValue = -120f;
-    [SerializeField] private float rotationSensitivity = 10f;
+    private float rotationSensitivity = 25f;
 
 
     private void Awake()
@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour
             }
 
             //rotate player left right (Y axis)
-            float mouseX = Input.GetAxis("Mouse X") * rotationSensitivity;
+            float mouseX = Input.GetAxis("Mouse X") * rotationSensitivity * UserSettings.MouseSensitivity;
             transform.Rotate(Vector3.up * mouseX);
 
             // apply boost on shift

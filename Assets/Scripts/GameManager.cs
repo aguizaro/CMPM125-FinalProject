@@ -74,7 +74,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject _forge;
     [SerializeField] private UIManager _UIManager;
     [SerializeField] private float timeBetweenWaves = 20f;
-    private Vector3[] _possibleForgePositions = { new Vector3(-132f, -0.13f, -17f), new Vector3(130f, -0.13f, -98.5f), new Vector3(81f, -0.13f, 158f), new Vector3(-5f, -0.13f, -185f), new Vector3(-84f, -0.13f, 243f), new Vector3(-174f, -0.13f, -230f) };
+    private Vector3[] _possibleForgePositions = { new Vector3(-0.894141197f, 0.460000008f, -18.5599995f), new Vector3(109, 0.460000008f, 348f), new Vector3(46, 0.460000008f, 645f), new Vector3(-592, 0.460000008f, 409f), new Vector3(-635, 0.460000008f, -681f), new Vector3(-200, 0.460000008f, -561f), new Vector3(209, 0.460000008f, -381f), new Vector3(-39.7000008f, 0.460000008f, 203.5f) };
     public GameState CurrentState = new GameState();
 
     // Audio
@@ -114,6 +114,7 @@ public class GameManager : MonoBehaviour
 
         _playerInstance.SetActive(true);
         _UIManager.UpdatePlayerNotifyText("");
+        _UIManager.UpdatePlayerNameDisplay(UserSettings.PlayerName);
         ResetGameState();
 
         CurrentState.gameStarted = true;

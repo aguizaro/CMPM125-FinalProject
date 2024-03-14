@@ -4,12 +4,12 @@ public class Arrow : MonoBehaviour
 {
     public Transform playerTransform;
     public Transform forgeTransform;
-    public float heightAbovePlayer = 2.0f;
+    public float distanceInFront = 3.0f;
 
     void Update()
     {
         // Place the arrow directly above the player
-        Vector3 arrowPosition = playerTransform.position + Vector3.up * heightAbovePlayer;
+        Vector3 arrowPosition = playerTransform.position + Vector3.forward * distanceInFront;
         transform.position = arrowPosition;
 
         // Calculate the direction from the arrow (not the player) to the forge, at the same height as the arrow
