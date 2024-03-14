@@ -156,12 +156,12 @@ PrefabInstance:
     - target: {fileID: 5581644460428190864, guid: 48af6036c61cb8546b6af4a0ea8e0d8f,
         type: 3}
       propertyPath: m_TagString
-      value: Enemy
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 5982006916481852914, guid: 48af6036c61cb8546b6af4a0ea8e0d8f,
         type: 3}
       propertyPath: m_TagString
-      value: Enemy
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 8059578339704122524, guid: 48af6036c61cb8546b6af4a0ea8e0d8f,
         type: 3}
@@ -201,12 +201,12 @@ PrefabInstance:
     - target: {fileID: 8133286488082569788, guid: 48af6036c61cb8546b6af4a0ea8e0d8f,
         type: 3}
       propertyPath: m_TagString
-      value: Enemy
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 8204786251682583519, guid: 48af6036c61cb8546b6af4a0ea8e0d8f,
         type: 3}
       propertyPath: m_TagString
-      value: Enemy
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 8823311054487696075, guid: 48af6036c61cb8546b6af4a0ea8e0d8f,
         type: 3}
@@ -311,7 +311,7 @@ PrefabInstance:
     - target: {fileID: 9077757808296582826, guid: 48af6036c61cb8546b6af4a0ea8e0d8f,
         type: 3}
       propertyPath: m_TagString
-      value: Enemy
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

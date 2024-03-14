@@ -15,12 +15,13 @@ public class DestroyEnemiesInRadius : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-            // Debug.Log("explosion collided with: " + other.gameObject.name + " tag: " + other.gameObject.tag);
+
             Destroy(other.transform.parent.gameObject);
             _gameManager.CurrentState.playerKillCount++;
             _gameManager.CurrentState.enemiesRemaining--;
             _uiManager.UpdateKillCount(_gameManager.CurrentState.playerKillCount);
             _uiManager.UpdateEnemiesRemaining(_gameManager.CurrentState.enemiesRemaining);
+            Debug.Log("explosion collided with: " + other.gameObject.name + " tag: " + other.gameObject.tag + "kc:" + _gameManager.CurrentState.playerKillCount);
 
             // Debug.Log("Explosion killed enemy\nTotal: " + _gameManager.CurrentState.playerKillCount + " enemies killed, " + _gameManager.CurrentState.enemiesRemaining + " enemies remaining");
         }
