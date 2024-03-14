@@ -36,6 +36,7 @@ public class EnemySnowmanShooting : MonoBehaviour
                     StartCoroutine(DestroyProjectile(projectile));
                     Rigidbody rb = projectile.GetComponent<Rigidbody>();
                     rb.AddForce(direction * projectileSpeed, ForceMode.VelocityChange);
+                    //add sound
                 }
             }
         }

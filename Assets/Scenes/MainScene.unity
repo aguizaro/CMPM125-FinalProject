@@ -608,6 +608,11 @@ PrefabInstance:
       objectReference: {fileID: 575748701}
     - target: {fileID: 8458372192650921856, guid: 4af090612091542e18634489aafda21d,
         type: 3}
+      propertyPath: DashSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 9a59e5a7469884da99319e61da528fef, type: 3}
+    - target: {fileID: 8458372192650921856, guid: 4af090612091542e18634489aafda21d,
+        type: 3}
       propertyPath: _UIManager
       value: 
       objectReference: {fileID: 468857038}
