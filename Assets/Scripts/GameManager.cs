@@ -244,6 +244,14 @@ public class GameManager : MonoBehaviour
             CurrentState.playerHealth += playerHealthRegenAmount; //very slow health regen on player
         }
 
+        if (CurrentState.timeisRunning && Input.GetKeyDown(KeyCode.Return))
+        {
+            StopAllCoroutines();
+            CurrentState.timeisRunning = false;
+            _UIManager.UpdatePlayerNotifyText("");
+            NextWave();
+        }
+
         // handle wave completion
         if (CurrentState.enemiesRemaining <= 0 && !CurrentState.timeisRunning)
         {
@@ -251,6 +259,7 @@ public class GameManager : MonoBehaviour
             CurrentState.timeRemaining = timeBetweenWaves;
             Debug.Log("Wave " + CurrentState.waveNumber + " completed");
             StartCoroutine(StartTimer());
+            _UIManager.UpdatePlayerNotifyText("Press [return] to start next wave");
         }
 
         if (Input.GetKeyDown(KeyCode.Mouse0) && (GameManager.Instance.heat >= 5.0f))
