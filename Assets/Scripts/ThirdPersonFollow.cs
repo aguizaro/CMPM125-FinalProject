@@ -5,7 +5,7 @@ using UnityEngine;
 public class ThirdPersonFollow : MonoBehaviour
 {
     public Transform target;
-    public float followSpeed = 10f;
+    public float followSpeed = 100f;
     public float xCamRotation = 18f;
     public Vector3 camOffset = new(0f, -1f, 7f);
 
