@@ -13,8 +13,8 @@ public class PlayerDash : MonoBehaviour
   //  private Rigidbody rb;
   // private PlayerController pm;
   // private Vector3 _previousPos;
-  public float dashSpeed;
-  public float dashTime;
+  public float dashSpeed = 3;
+  public float dashTime = 0.25f;
   public bool indashed = false;
 
   //  [Header("Dashing")]
